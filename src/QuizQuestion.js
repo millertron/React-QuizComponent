@@ -3,10 +3,21 @@ import QuizQuestionButton from './QuizQuestionButton.js'
 
 class QuizQuestion extends Component {
 
+  constructor(props){
+    super(props);
+    this.state ={
+        incorrectAnswer: false
+    };
+  }
+
   handleClick(buttonText){
-    console.log(buttonText, this.props.quiz_question.answer);
-    if (buttonText === this.props.quiz_question.answer){
-      console.log("FOOO!");
+    const correctAnswer = (buttonText === this.props.quiz_question.answer);
+    this.setState((state)=>{
+      return {
+        incorrectAnswer: !correctAnswer
+      };
+    });
+    if (correctAnswer){
       this.props.showNextQuestionHandler();
     }
   }
@@ -20,7 +31,7 @@ class QuizQuestion extends Component {
         </section>
         <section className="buttons">
           <ul>
-            //I can't use my local variable because of PluralSight check
+            {/*I can't use my local variable because of PluralSight check*/}
             {this.props.quiz_question.answer_options.map((answer_option, index) => {
               return <QuizQuestionButton
                 key={index}
@@ -30,6 +41,9 @@ class QuizQuestion extends Component {
             })}
           </ul>
         </section>
+        {this.state.incorrectAnswer ?
+          <p className='error'>Sorry, that's not right</p>
+        : null}
       </main>
     );
   }

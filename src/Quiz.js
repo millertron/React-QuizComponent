@@ -14,9 +14,6 @@ class Quiz extends Component {
     this.setState((state) => {
       return {quiz_position: this.state.quiz_position + 1};
     });
-    console.log(this.state.quiz_position);
-    console.log("Length:", quizData.quiz_questions.length);
-
   }
 
   render(){
